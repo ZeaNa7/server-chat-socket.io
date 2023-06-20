@@ -1,0 +1,73 @@
+<%- include('partials/sidebar'); -%>
+
+<style>
+    img {
+        width: 100%;
+        height: 50%;
+        border-radius: 10px;
+    }
+
+    a {
+        text-decoration: none;
+        color: black;
+    }
+
+    h3 {
+        margin: 10px 0 10px 0; 
+    }
+
+    .window {
+        display: block;
+    }
+
+    .container {
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: row;
+        justify-content: center;
+    }
+
+    .card {
+        /* Add shadows to create the "card" effect */
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+        transition: 0.3s;
+        width: 250px;
+        height: 350px;
+        padding: 20px;
+        border-radius: 10px;
+        background-color: rgb(0, 128, 113);
+        align-items: center;
+        justify-content: center;
+        margin: 10px 20px 0 0;
+    }
+
+    .card:hover {
+        box-shadow: 0 8px 16px 0 rgba(255, 255, 255, 0.2);
+    }
+</style>
+
+<body>
+    <div class="window">
+        <h1>Languages</h1>
+        <div class="container">
+            <div class="card">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Flag_of_France.svg/2560px-Flag_of_France.svg.png"
+                    class="fa fa-rebel" aria-hidden="true" alt="Frensh" style="height:80%">
+                <h3>Frensh</h3>
+                <button type="submit"><a href="learn/frensh">Learn</a></button>
+            </div>
+            <div class="card">
+                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAARMAAAC3CAMAAAAGjUrGAAAAFVBMVEWlGTEtKkr09fiiACLOnKT3+/4lIUVG4+9+AAABD0lEQVR4nO3cSQ3AAAzAsO7kD3nSng0FG0IAZAYAAAAAAAAA+F1sc7PNwzYnmyalSWlSmpQmpUlpUpqUJqVJaVKalCalSWlSmpQmpUlpUpqUJqVJaVKalCalSWlSmtS8bHOwaVKalCalSWlSmpQmpUlpUpqUJqVJaVKalCalSWlSmpQmpUlpUpqUJqVJaVKalCalSWlSmpQmpUlpUpqUJqVJaVKalCalSWlSmpQmpUlpUpqUJqVJaVKalCalSWlSmpQmpUlpUpqUX0H5WpQmpUlpUpqUJqVJaVKalCalSWlSmpQmpUlpUpqUJqVJaVKalCalSWlSmpQmpUlpUprUPGxzs83FNgAAAAAAAADA7wOPVeKqWYYvrwAAAABJRU5ErkJggg=="
+                    alt="Thai" style="height:80%">
+                <h3>Thai</h3>
+                <button type="submit"><a href="learn/thai">Learn</a></button>
+            </div>
+            <div class="card">
+                <img src="data:image/png;base64,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"
+                    alt="Korean" style="height:80%">
+                <h3>Korean</h3>
+                <button type="submit"><a href="learn/korean">Learn</a></button>
+            </div>
+        </div>
+    </div>
+</body>

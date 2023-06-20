@@ -1,0 +1,143 @@
+<style>
+    body {
+        margin-left: 250px;
+        padding-bottom: 3rem;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    #form {
+        background: rgba(0, 0, 0, 0.15);
+        padding: 0.25rem;
+        position: fixed;
+        bottom: 0;
+        left: 250px;
+        right: 0;
+        display: flex;
+        height: 3rem;
+        box-sizing: border-box;
+        backdrop-filter: blur(10px);
+        color: white;
+    }
+
+    #input {
+        border: none;
+        padding: 0 1rem;
+        flex-grow: 1;
+        border-radius: 2rem;
+        margin: 0.25rem;
+    }
+
+    #input:focus {
+        outline: none;
+    }
+
+    #form>button {
+        background: #333;
+        border: none;
+        padding: 0 1rem;
+        margin: 0.25rem;
+        border-radius: 3px;
+        outline: none;
+        color: #fff;
+    }
+
+    #messages {
+        list-style-type: none;
+        /* left: 250px; */
+        margin: 20px;
+        padding: 0;
+        justify-content: space-evenly;
+    }
+
+    #messages>li:nth-child(odd) {
+        background: #e8e3e3;
+        color: black;
+    }
+
+    .logged-user {
+        color: red;
+    }
+
+    .pseudo {
+        font-weight: bold;
+    }
+
+    .date {
+        display: flex;
+        justify-content: flex-end;
+    }
+</style>
+<%- include('partials/sidebar'); -%>
+
+
+<body>
+    <h1><%= name ? `Welcome to the chat ${name}` : 'Welcome to the chat ' %></h1>
+    <ul id="messages"></ul>
+    <form id="form" action="">
+        <input id="input" autocomplete="off" /><button>Send</button>
+    </form>
+    <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
+    <script>
+        var socket = io();
+
+        const pseudo = prompt("Enter your pseudo");
+        socket.emit('pseudo', pseudo);
+        socket.pseudo = pseudo;
+
+        const form = document.getElementById('form');
+        form.addEventListener('submit', (event) => {
+            event.preventDefault();
+            const input = document.getElementById('input');
+            const message = {
+                pseudo: socket.pseudo,
+                text: input.value
+            };
+            socket.emit('chat message', message);
+            input.value = '';
+        });
+
+        socket.on('login', function (pseudo) {
+            const message = {
+                pseudo: pseudo,
+                date: new Date().toLocaleTimeString()
+            };
+            addMessage(message);
+        });
+
+        //  Function add message new user connected
+        function addMessage(message) {
+            const messages = document.getElementById('messages');
+            var item = document.createElement('p');
+            const pseudoSpan = document.createElement('span');
+            const dateSpan = document.createElement('span');
+            dateSpan.classList.add('date');
+            pseudoSpan.textContent = message.pseudo + ': ';
+            dateSpan.textContent = message.date;
+            item.appendChild(pseudoSpan);
+            item.appendChild(dateSpan);
+            messages.appendChild(item);
+            window.scrollTo(0, document.body.scrollHeight);
+        }
+
+        // Listen receive message
+        socket.on('chat message', function (msg) {
+            var item = document.createElement('p');
+            const pseudoSpan = document.createElement('span');
+            const textSpan = document.createElement('span');
+            const dateSpan = document.createElement('span');
+            pseudoSpan.classList.add('pseudo');
+            textSpan.textContent = msg.text;
+            if (msg.pseudo === socket.pseudo) {
+                pseudoSpan.classList.add('logged-user');
+            }
+            pseudoSpan.textContent = msg.pseudo + ': ';
+            dateSpan.classList.add('date');
+            dateSpan.textContent = msg.date;
+            item.appendChild(pseudoSpan);
+            item.appendChild(textSpan);
+            item.appendChild(dateSpan);
+            messages.appendChild(item);
+            window.scrollTo(0, document.body.scrollHeight);
+        });
+    </script>
+</body>

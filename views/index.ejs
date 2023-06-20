@@ -1,0 +1,68 @@
+<%- include('partials/sidebar'); -%>
+<style>
+    .container {
+        display: block;
+        background-image: url("/public/images/1.jpg");
+        height: 100vh;
+    }
+    .log {
+        padding-right: 20px;
+        margin-top: 5%;
+        display: flex;
+        justify-content: flex-end;
+    }
+
+    .title {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        height: 60%;
+    }
+
+    .citation {
+        margin-top: 50px;
+        border: solid 2px white;
+        padding: 10px;
+        width: 50%;
+    }
+
+    .link {
+        margin-top: 50px;
+    }
+
+    button {
+        background-color: #4CAF50;
+        border: none;
+        padding: 10px 20px;
+        text-align: center;
+        display: inline-block;
+        font-size: 16px;
+    }
+
+    .button-log {
+        text-decoration: none;
+        color: white;
+    }
+
+</style>
+<div class="container">
+    <div class="log">
+        <% if (login === true) { %>
+            <form action="/logout" method="POST">
+                <button type="submit"> Log Out</button>
+            </form>
+            <% } else { %>
+                <button type="submit"><a class="button-log" href="login"> 👥 Log In</a></button>
+                <% }  %>
+    </div>
+    <div class="title">
+        <h1>Welcome <%= name %> 👋</h1>
+        <h2>Welcome to the space language, what language would you like to learn ? </h2>
+        <div class="citation">
+            <p>"The limits of my language are the limits of my world"</p>
+            <p>-Ludwig Wittgenstein</p>
+        </div>
+        <a href="download/download" class="link">Download the guide explaining which country speaks which language</a>
+    </div>
+</div>

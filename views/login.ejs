@@ -1,0 +1,57 @@
+<%- include('partials/sidebar'); -%>
+<style>
+    body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+    }
+
+    input {
+        border-radius: 5px;
+        border-style: none;
+        height: 25px;
+    }
+
+    .btn {
+        padding: 8px 20px;
+        border-radius: 5px;
+        overflow: hidden;
+        border-style: none;
+    }
+
+    .login-form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 50px 40px;
+        color: white;
+        background: rgba(79, 227, 133, 0.8);
+        border-radius: 10px;
+        box-shadow: 0 0.4px 0.4px rgba(128, 128, 128, 0.109),
+            0 1px 1px rgba(128, 128, 128, 0.155),
+            0 2.1px 2.1px rgba(128, 128, 128, 0.195),
+            0 4.4px 4.4px rgba(128, 128, 128, 0.241),
+            0 12px 12px rgba(128, 128, 128, 0.35);
+    }
+
+    .form-input {
+        position: relative;
+        margin-bottom: 30px;
+        flex-direction: column;
+    }
+    
+</style>
+
+<body>
+    <form class="login-form" method="POST" action="/login">
+        <h1>Log In</h1>
+        <div class="form-input">
+            <input type="text" name="username" id="username" placeholder="Username " autocomplete="off" required />
+        </div>
+        <div class="form-input">
+            <input type="password" name="password" id="password" placeholder="Password" autocomplete="off" required />
+        </div>
+        <button type="submit" class="btn">Login</button>
+    </form>
+</body>
